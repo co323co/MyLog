@@ -53,6 +53,10 @@ dependencies {
     annotationProcessor group: 'com.querydsl', name: 'querydsl-apt', version: querydslVersion, classifier: 'jpa'
     annotationProcessor("jakarta.persistence:jakarta.persistence-api")
     annotationProcessor("jakarta.annotation:jakarta.annotation-api")
+
+    // Security
+    compile "org.springframework.boot:spring-boot-starter-security"
+    compile group: 'io.jsonwebtoken', name: 'jjwt', version: '0.7.0'
 }
 
 test {

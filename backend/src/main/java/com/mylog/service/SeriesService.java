@@ -16,6 +16,7 @@ import java.util.List;
 
 public interface SeriesService {
     ResponseEntity<Response<Object>> createSeries(CreateSeriesInput createSeriesInput);
+    ResponseEntity<Response<Series>> selectSeries(int seriesId);
     ResponseEntity<Response<List<Series>>> selectSeriesList();
     ResponseEntity<Response<Object>> updateSeries(UpdateSeriesInput updateSeriesInput, int seriesId);
     ResponseEntity<Response<Object>> deleteSeries(int seriesId);

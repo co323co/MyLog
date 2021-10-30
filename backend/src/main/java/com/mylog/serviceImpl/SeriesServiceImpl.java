@@ -67,20 +67,40 @@ public class SeriesServiceImpl implements SeriesService {
     }
 
     @Override
-    public ResponseEntity<Response<List<Series>>> selectSeriesList() {
+    public ResponseEntity<Response<Series>> selectSeries(int seriesId) {
         // 2. 시리즈 조회
-        List<Series> commentList;
+        Series series;
         try {
-            commentList = seriesRepository.findAll();
+            series = seriesRepository.findById(seriesId).orElse(null);
+            if(series==null)
+                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                        .body(new Response<>(NOT_FOUND_SERIES));
         } catch (Exception e) {
-            log.error("[comments/get] database error", e);
+            log.error("[series/get] database error", e);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body(new Response<>(DATABASE_ERROR));
         }
 
         // 3. 결과 return
         return ResponseEntity.status(HttpStatus.OK)
-                .body(new Response<>(commentList, SUCCESS_SELECT_SERIES));
+                .body(new Response<>(series, SUCCESS_SELECT_SERIES));
+    }
+
+    @Override
+    public ResponseEntity<Response<List<Series>>> selectSeriesList() {
+        // 2. 시리즈 조회
+        List<Series> seriesList;
+        try {
+            seriesList = seriesRepository.findAll();
+        } catch (Exception e) {
+            log.error("[series/get] database error", e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(new Response<>(DATABASE_ERROR));
+        }
+
+        // 3. 결과 return
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(new Response<>(seriesList, SUCCESS_SELECT_SERIES));
     }
 
     @Override

@@ -39,6 +39,18 @@ public class SeriesController {
 
     /**
      * 시리즈 조회 API
+     * [GET] /api/series/{id}
+     * @return ResponseEntity<Response<Series>>
+     */
+    // Params
+    @GetMapping("/{id}")
+    public ResponseEntity<Response<Series>> getSeries(@PathVariable("id") int id) {
+        log.info("[GET] /api/series/{id}");
+        return seriesService.selectSeries(id);
+    }
+
+    /**
+     * 시리즈 리스트 조회 API
      * [GET] /api/series
      * @return ResponseEntity<Response<List<Series>>>
      */

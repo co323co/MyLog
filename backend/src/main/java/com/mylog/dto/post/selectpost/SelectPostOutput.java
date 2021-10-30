@@ -17,19 +17,19 @@ public class SelectPostOutput {
     private Integer postId;
     private String postTitle;
     private String postContent;
-    private LocalDateTime commentCreatedAt;
-    private LocalDateTime commentUpdatedAt;
+    private LocalDateTime postCreatedAt;
+    private LocalDateTime postUpdatedAt;
     private Integer commentCount;
 
     @QueryProjection
-    public SelectPostOutput(Integer seriesId, String seriesName, Integer postId, String postTitle, String postContent, LocalDateTime commentCreatedAt, LocalDateTime commentUpdatedAt, Integer commentCount) {
+    public SelectPostOutput(Integer seriesId, String seriesName, Integer postId, String postTitle, String postContent, LocalDateTime postCreatedAt, LocalDateTime postUpdatedAt, Integer commentCount) {
         this.seriesId = seriesId;
         this.seriesName = seriesName;
         this.postId = postId;
         this.postTitle = postTitle;
         this.postContent = postContent;
-        this.commentCreatedAt = commentCreatedAt;
-        this.commentUpdatedAt = commentUpdatedAt;
+        this.postCreatedAt = postCreatedAt;
+        this.postUpdatedAt = postUpdatedAt;
         this.commentCount = commentCount;
     }
 }
