@@ -15,10 +15,17 @@ public enum  ResponseStatus {
     // 200 OK - 클라이언트의 요청을 서버가 정상적으로 처리했다.
     SUCCESS(200, 200, "요청에 성공하였습니다."),
     SUCCESS_SELECT_COMMENT(200, 201, "댓글 조회에 성공하였습니다."),
+    SUCCESS_SELECT_POST(200, 202, "게시글 조회에 성공하였습니다."),
+    SUCCESS_SELECT_POST_FILE(200, 203, "게시글 파일 조회에 성공하였습니다."),
+    SUCCESS_SELECT_SERIES(200, 204, "시리즈 조회에 성공하였습니다."),
+
 
     // 201 Created - 클라이언트의 요청을 서버가 정상적으로 처리했고 새로운 리소스가 생겼다.,
     CREATED(201, 200, "리소스 생성에 성공하였습니다."),
     CREATED_COMMENT(201, 201, "댓글 등록에 성공하였습니다."),
+    CREATED_POST(201, 202, "게시글 등록에 성공하였습니다."),
+    CREATED_SERIES(201, 203, "시리즈 등록에 성공하였습니다."),
+    CREATED_POST_FILE(201, 204, "게시글 파일 등록에 성공하였습니다."),
 
     // 202 Accepted - 클라이언트의 요청은 정상적이나, 서버가 아직 요청을 완료하지 못했다. 비동기
     ACCEPTED(202, 200, "요청에 성공하였습니다."),
@@ -27,6 +34,13 @@ public enum  ResponseStatus {
     NO_CONTENT(204, 200, "요청에 성공하였습니다."),
     SUCCESS_UPDATE_COMMENT(204, 201, "댓글 수정에 성공하였습니다."),
     SUCCESS_DELETE_COMMENT(204, 202, "댓글 삭제에 성공하였습니다."),
+    SUCCESS_UPDATE_POST(204, 201, "게시글 수정에 성공하였습니다."),
+    SUCCESS_DELETE_POST(204, 202, "게시글 삭제에 성공하였습니다."),
+    SUCCESS_UPDATE_POST_FILE(204, 201, "게시글 파일 수정에 성공하였습니다."),
+    SUCCESS_DELETE_POST_FILE(204, 202, "게시글 파일 삭제에 성공하였습니다."),
+    SUCCESS_UPDATE_SERIES(204, 201, "시리즈 수정에 성공하였습니다."),
+    SUCCESS_DELETE_SERIES(204, 202, "시리즈 삭제에 성공하였습니다."),
+
 
     /*
      4XX Client errors

@@ -27,6 +27,7 @@ public class Comment {
      * 댓글 달린 게시글
      */
     @ManyToOne
+    @OnDelete(action= OnDeleteAction.CASCADE)
     @JoinColumn(name="post_id", nullable = false)
     private Post post;
 

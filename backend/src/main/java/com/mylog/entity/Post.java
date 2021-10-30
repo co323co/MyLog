@@ -1,12 +1,14 @@
 package com.mylog.entity;
 
 import lombok.*;
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.DynamicInsert;
-import org.hibernate.annotations.UpdateTimestamp;
+import org.hibernate.annotations.*;
 
 import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 import static javax.persistence.GenerationType.IDENTITY;
 
@@ -24,10 +26,10 @@ public class Post {
     private int id;
 
     /**
-     * 속한 게시판
+     * 시리즈 여부
      */
     @ManyToOne
-    @JoinColumn(name="series_id", nullable = false)
+    @JoinColumn(name="series_id")
     private Series series;
 
     @Column(name="title", nullable = false)
@@ -46,4 +48,8 @@ public class Post {
     @UpdateTimestamp
     @Column(name = "updated_at", nullable = false)
     private LocalDateTime updatedAt;
+
+//    @OneToMany(fetch=FetchType.LAZY, orphanRemoval= true, cascade= CascadeType.ALL,mappedBy = "post")
+//    @OneToMany(fetch=FetchType.LAZY, mappedBy = "post")
+//    private List<PostFileMeta> files = new ArrayList<PostFileMeta>();
 }

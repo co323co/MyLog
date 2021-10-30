@@ -140,12 +140,12 @@ public class CommentServiceImpl implements CommentService {
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                         .body(new Response<>(NOT_FOUND_COMMENT));
             }
-            // 2. 비밀번호 일치 확인
+            // 3. 비밀번호 일치 확인
             if (!comment.getPassword().equals(updateCommentInput.getPassword())) {
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                         .body(new Response<>(BAD_PASSWORD_VALUE));
             }
-            // 3. 댓글 수정
+            // 4. 댓글 수정
             //작성자명 수정
             if(updateCommentInput.getWriter()!=null){
                 String writer = updateCommentInput.getWriter().equals("")?"익명":updateCommentInput.getWriter();
@@ -160,7 +160,7 @@ public class CommentServiceImpl implements CommentService {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body(new Response<>(DATABASE_ERROR));
         }
-        // 3. 결과 return
+        // 5. 결과 return
         return ResponseEntity.status(HttpStatus.OK)
                 .body(new Response<>(null, SUCCESS_UPDATE_COMMENT));
     }
