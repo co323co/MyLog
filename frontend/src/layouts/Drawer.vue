@@ -11,8 +11,10 @@
 
           <v-list-item link>
             <v-list-item-content>
-              <v-list-item-title class="text-h6"> Sandra Adams </v-list-item-title>
-              <v-list-item-subtitle>sandra_a88@gmail.com</v-list-item-subtitle>
+              <v-list-item-title> <h2>김민정</h2></v-list-item-title>
+              <v-list-item-subtitle>
+                <div style="font-size: 0.9rem">co323co@gmail.com</div>
+              </v-list-item-subtitle>
             </v-list-item-content>
           </v-list-item>
         </v-list>
@@ -20,23 +22,21 @@
         <v-divider></v-divider>
 
         <v-list nav dense>
-          <v-list-item link>
+          <v-list-item link @click="move('main')">
             <v-list-item-icon>
-              <v-icon>mdi-folder</v-icon>
+              <v-icon>mdi-home</v-icon>
             </v-list-item-icon>
-            <v-list-item-title>My Files</v-list-item-title>
+            <v-list-item-title>
+              <div style="font-size: 1rem">홈</div>
+            </v-list-item-title>
           </v-list-item>
-          <v-list-item link>
+          <v-list-item link @click="move('board')">
             <v-list-item-icon>
-              <v-icon>mdi-account-multiple</v-icon>
+              <v-icon>mdi-book</v-icon>
             </v-list-item-icon>
-            <v-list-item-title>Shared with me</v-list-item-title>
-          </v-list-item>
-          <v-list-item link>
-            <v-list-item-icon>
-              <v-icon>mdi-star</v-icon>
-            </v-list-item-icon>
-            <v-list-item-title>Starred</v-list-item-title>
+            <v-list-item-title>
+              <div style="font-size: 1rem">시리즈</div>
+            </v-list-item-title>
           </v-list-item>
         </v-list>
       </v-navigation-drawer>
@@ -44,6 +44,14 @@
   </div>
 </template>
 <script>
-export default {};
+export default {
+  methods: {
+    move(path) {
+      //탭 메뉴들을 바꾸기 위해 알려줌
+      if (path == 'main') this.$router.push({ path: `/main` }).catch(() => {});
+      else if (path == 'board') this.$router.push({ path: `/board` }).catch(() => {});
+    },
+  },
+};
 </script>
 <style lang=""></style>

@@ -1,9 +1,10 @@
 import Vue from 'vue';
 import Router from 'vue-router';
+import store from '@/store';
 
 Vue.use(Router);
 
-export default new Router({
+const router = new Router({
   routes: [
     {
       path: '/',
@@ -19,31 +20,6 @@ export default new Router({
           path: '/board',
           name: 'board',
           component: () => import('@/pages/Board.vue'),
-          children: [
-            {
-              path: '',
-              name: 'board-post-list',
-              component: () => import('@/components/board/BoardList.vue'),
-            },
-            {
-              path: 'create',
-              name: 'board-post-create',
-              component: () => import('@/components/board/BoardCreate.vue'),
-            },
-            {
-              path: 'view/:id',
-              name: 'board-post-view',
-              component: () => import('@/components/board/BoardView.vue'),
-            },
-            {
-              path: 'modify/:id',
-              name: 'board-post-modify',
-              component: () => import('@/components/board/BoardModify.vue'),
-            },
-          ],
-          redirect: () => {
-            return '/board';
-          },
         },
       ],
     },
@@ -52,6 +28,14 @@ export default new Router({
       component: () => import('../pages/Error404.vue'),
     },
   ],
+
   // #을 제거하기 위해 history 를 모드로 추가한다.
   mode: 'history',
+});
+
+export default router;
+//탭 메뉴들을 바꾸기 위해 라우터 위치를 저장해둠
+router.beforeEach((to, from, next) => {
+  store.dispatch('getRouterName', to.name);
+  next();
 });

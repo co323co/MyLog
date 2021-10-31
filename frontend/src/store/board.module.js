@@ -1,14 +1,18 @@
 import axios from '@/utils/axios.js';
+import { getPostList } from '@/api/post';
+
 export default {
+  // 현재 상태들
   state: {
-    boards: [],
+    //현재 보드에 있는 게시글들
     board: {},
     comments: [],
+    seriesId: '',
     seriesname: '',
   },
   getters: {
-    boards(state) {
-      return state.boards;
+    seriesId(state) {
+      return state.seriesId;
     },
     board(state) {
       return state.board;
@@ -21,8 +25,8 @@ export default {
     },
   },
   mutations: {
-    setBoards(state, payload) {
-      state.boards = payload;
+    setSeriesId(state, payload) {
+      state.seriesId = payload;
     },
     setBoard(state, payload) {
       state.board = payload;
@@ -36,21 +40,14 @@ export default {
   },
   actions: {
     // 앞에 /board
-    //게시판 구분(gubun)으로 해당 게시판 게시글 전부 찾기
-    getBoards(context, payload) {
-      axios
-        .get('/board/' + payload)
-        .then(({ data }) => {
-          context.commit('setBoards', data);
-        })
-        .catch(() => {
-          alert('에러발생!');
-        });
-    },
-    //게시글 id로 해당 게시글 찾기
+    //현재 보드에 띄워줄 게시글 리스트 가져오기
     getBoard(context, payload) {
-      axios.get('/board/post/' + payload).then(({ data }) => {
-        context.commit('setBoard', data);
+      getPostList(payload).then((res) => context.commit('setBoard', res));
+    },
+
+    getSeriesName(context, payload) {
+      axios.get('/series/' + payload).then(({ data }) => {
+        context.commit('setSeriesName', data.result.name);
       });
     },
     //시리즈 id로 시리즈 이름 찾기
