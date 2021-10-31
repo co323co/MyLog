@@ -7,6 +7,7 @@ import lombok.*;
 @Builder
 @Getter
 @Setter
+@ToString
 public class CreatePostInput {
     private Integer seriesId;
     private String title;

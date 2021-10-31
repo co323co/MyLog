@@ -39,6 +39,7 @@ import static com.mylog.response.ResponseStatus.*;
 public class SeriesServiceImpl implements SeriesService {
 
     private final SeriesRepository seriesRepository;
+    private final PostRepository postRepository;
 
     @Override
     @Transactional
@@ -116,13 +117,13 @@ public class SeriesServiceImpl implements SeriesService {
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                         .body(new Response<>(NO_VALUES));
 
-            // 2. 댓글 조회
+            // 2. 시리즈 조회
             Series series = seriesRepository.findById(seriesId).orElse(null);
             if (series == null) {
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                         .body(new Response<>(NOT_FOUND_SERIES));
             }
-            // 3. 댓글 수정
+            // 3. 시리즈 수정
             //시리즈명 수정
             series.setName(updateSeriesInput.getName());
             seriesRepository.save(series);
@@ -147,7 +148,10 @@ public class SeriesServiceImpl implements SeriesService {
             if (series == null)
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                         .body(new Response<>(NOT_FOUND_SERIES));
-
+            List<Post> postList = postRepository.findBySeries(series);
+            for(Post post : postList)
+                post.setSeries(null);
+            postRepository.saveAll(postList);
             seriesRepository.delete(series);
 
         } catch (Exception e) {

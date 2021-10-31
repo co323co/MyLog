@@ -44,6 +44,7 @@ public class PostServiceImpl implements PostService {
     @Override
     @Transactional
     public ResponseEntity<Response<Object>> createPost(CreatePostInput createPostInput) {
+        System.out.println(createPostInput);
         // 1. 값 형식 체크
         if (createPostInput == null)
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)
