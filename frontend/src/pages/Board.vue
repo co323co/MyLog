@@ -40,6 +40,7 @@
         <v-data-table
           v-if="!isDeltePostListMode"
           :headers="headers"
+          :header-props="headerProps"
           :items="postList"
           item-key="postId"
           :search="search"
@@ -97,6 +98,7 @@
         <!-- <div v-for="(post, index) in board" :key="index"> -->
         <!-- {{ post.postTitle }} -->
         <!-- </div> -->
+        <!-- 게시글 단일 조회 (목록에서 눌렀을 시) -->
       </div>
       <div class="divier mt-2" />
       <v-flex v-if="isDetailMode" class="my-7">
@@ -131,6 +133,9 @@ export default {
         { text: '제목', value: 'title' },
         { text: '작성시간', value: 'time', align: 'end' },
       ],
+      headerProps: {
+        sortByText: '정렬',
+      },
       postTableOption: {},
       isWriteMode: false,
       postList: [],

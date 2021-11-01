@@ -1,14 +1,16 @@
 import axios from '@/utils/axios.js';
 import { getPostList } from '@/api/post';
+import { getCommentList } from '@/api/comment';
 
 export default {
   // 현재 상태들
   state: {
     //현재 보드에 있는 게시글들
-    board: {},
+    board: [],
     comments: [],
     seriesId: '',
-    seriesname: '',
+    // seriesname: '',
+    commentsDic: {},
   },
   getters: {
     seriesId(state) {
@@ -17,11 +19,11 @@ export default {
     board(state) {
       return state.board;
     },
-    seriesname(state) {
-      return state.seriesname;
-    },
-    comments(state) {
-      return state.comments;
+    // seriesname(state) {
+    //   return state.seriesname;
+    // },
+    commentsDic(state) {
+      return state.commentsDic;
     },
   },
   mutations: {
@@ -31,36 +33,43 @@ export default {
     setBoard(state, payload) {
       state.board = payload;
     },
-    setSeriesName(state, payload) {
-      state.seriesname = payload;
+    // setSeriesName(state, payload) {
+    //   state.seriesname = payload;
+    // },
+    setCommentsDic(state, payload) {
+      let { postId, commentList } = payload;
+      state.commentsDic[postId] = commentList;
+      state.commentsDic = Object.assign({}, state.commentsDic);
     },
-    setComments(state, payload) {
-      state.comments = payload;
+    deleteCommentsDic(state, payload) {
+      delete state.commentsDic[payload];
+      state.commentsDic = Object.assign({}, state.commentsDic);
     },
   },
   actions: {
-    // 앞에 /board
     //현재 보드에 띄워줄 게시글 리스트 가져오기
     getBoard(context, payload) {
       getPostList(payload).then((res) => context.commit('setBoard', res));
     },
+    // //시리즈 id로 시리즈 이름 찾기
+    // getSeriesName(context, payload) {
+    //   axios.get('/series/' + payload).then(({ data }) => {
+    //     context.commit('setSeriesName', data.result.name);
+    //   });
+    // },
 
-    getSeriesName(context, payload) {
-      axios.get('/series/' + payload).then(({ data }) => {
-        context.commit('setSeriesName', data.result.name);
+    //(페이지, 댓글리스트) 쌍 추가하기
+    getCommentsDic(context, payload) {
+      getCommentList(payload).then((res) => {
+        context.commit('setCommentsDic', {
+          postId: payload.postId,
+          commentList: res,
+        });
       });
     },
-    //시리즈 id로 시리즈 이름 찾기
-    getSeriesName(context, payload) {
-      axios.get('/series/' + payload).then(({ data }) => {
-        context.commit('setSeriesName', data.result.name);
-      });
-    },
-    //게시글 id로 댓글들 찾기
-    getComments(context, payload) {
-      axios.get('/comment/' + payload).then(({ data }) => {
-        context.commit('setComments', data);
-      });
+
+    deleteCommentsDic(context, payload) {
+      context.commit('deleteCommentsDic', payload);
     },
   },
 };

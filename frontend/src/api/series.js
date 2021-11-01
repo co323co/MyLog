@@ -1,12 +1,6 @@
 import axios from '@/utils/axios';
 
 // 모든 시리즈 목록 조회 API
-// function getSeriesList() {
-//   console.log(process.env.VUE_APP_API_URL + '/api/series');
-//   return axios.get('/series');
-// }
-
-// 모든 시리즈 목록 조회 API
 async function getSeriesList() {
   try {
     const { data } = await axios.get('/series');
@@ -15,4 +9,15 @@ async function getSeriesList() {
     console.error(error);
   }
 }
-export { getSeriesList };
+
+// 시리즈 이름 조회
+async function getSeriesName(seriesId) {
+  try {
+    const { data } = await axios.get(`/series/${seriesId}`);
+    return data.result;
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+export { getSeriesList, getSeriesName };

@@ -32,7 +32,7 @@
           </v-list-item>
           <v-list-item link @click="move('board')">
             <v-list-item-icon>
-              <v-icon>mdi-book</v-icon>
+              <v-icon>mdi-bookshelf</v-icon>
             </v-list-item-icon>
             <v-list-item-title>
               <div style="font-size: 1rem">시리즈</div>

@@ -27,18 +27,39 @@
         <v-row v-if="!isAlertShow">
           <!-- 좌측 -->
           <v-col class="text-left">
-            <v-btn class="mt-2" text>댓글 {{ post.commentCount }}</v-btn>
+            <v-btn
+              :disabled="post.commentCount == 0"
+              v-if="!isShowComment"
+              @click="clickCommentBtn('open')"
+              class="mt-2"
+              text
+              outlined
+            >
+              <v-icon class="mr-1" gray small>mdi-message-processing</v-icon>
+              댓글 {{ post.commentCount }}
+            </v-btn>
+            <v-btn
+              v-else
+              color="red darken-3"
+              @click="clickCommentBtn('close')"
+              class="mt-2"
+              text
+              outlined
+            >
+              <v-icon class="mr-1" gray small>mdi-message-processing</v-icon>
+              댓글 {{ post.commentCount }}
+            </v-btn>
           </v-col>
           <!-- 우측 -->
-          <v-col class="text-right">
+          <v-col class="text-right" style="margin-right: -25px">
             <!-- 수정 버튼 -->
-            <v-btn @click="changeMode('edit')" class="mx-1" plain small fab color="grey lighten-1">
+            <v-btn @click="changeMode('edit')" class="mr-1" plain small fab color="grey lighten-1">
               <v-icon>mdi-pencil</v-icon>
             </v-btn>
             <!-- 삭제 버튼 -->
             <v-btn
               @click="changeMode('try_delete')"
-              class="mx-1"
+              class="ml-1"
               plain
               small
               fab
@@ -48,18 +69,31 @@
             </v-btn>
           </v-col>
         </v-row>
+        <!-- 삭제 알림 -->
         <v-row v-else style="top: -80px; z-index: 2">
           <Alert msg="정말로 글을 삭제하시겠어요?" :ok="deleteAlertOk" :no="deleteAlertNo" />
         </v-row>
       </div>
+
+      <!-- 댓글 리스트 -->
+      <div v-if="isShowComment" class="commentArea">
+        <div v-for="(comment, index) in commentList" :key="index">
+          <Comment :comment="comment" />
+        </div>
+
+        <CommentWrite :postId="post.postId" />
+      </div>
     </div>
+
+    <!-- 수정 Form -->
     <div v-else class="edit">
       <v-row class="px-1">
         <v-col cols="2">
           <v-select
-            :items="selectSeriesList"
-            chips
+            height="42"
             dense
+            small-chips
+            :items="selectSeriesList"
             outlined
             label="시리즈 이동"
             v-model="selectValue"
@@ -92,18 +126,14 @@
         ></v-textarea>
       </v-row>
       <!-- 게시글 하단 바 -->
-      <div class="bottom">
+      <div class="bottom mb-2" style="margin-right: -20px">
         <v-row v-if="!isAlertShow">
-          <!-- 좌측 -->
-          <v-col class="text-left">
-            <v-btn class="mt-2" text>댓글 {{ post.commentCount }}</v-btn>
-          </v-col>
           <!-- 우측 -->
           <v-col class="text-right">
             <!-- 수정 취소 버튼 -->
             <v-btn
               @click="changeMode('try_cancle')"
-              class="mx-1"
+              class="mr-1"
               plain
               small
               fab
@@ -124,9 +154,8 @@
             </v-btn>
           </v-col>
         </v-row>
-
         <!-- <transition name="slide-fade"> -->
-        <v-row v-else style="top: -80px; z-index: 3">
+        <v-row v-else style="top: -340px; z-index: 3">
           <Alert
             msg="작성하시던 내용이 사라질 수 있습니다. 취소하시겠습니까?"
             :ok="cancleAlertOk"
@@ -143,6 +172,8 @@
 
 <script>
 import Alert from '@/components/common/WarningAlert';
+import Comment from '@/components/board/comment/Comment';
+import CommentWrite from '@/components/board/comment/CommentWrite';
 import { updatePost, deletePost } from '@/api/post';
 import { mapGetters } from 'vuex';
 
@@ -150,13 +181,14 @@ export default {
   data() {
     return {
       rules: [(value) => !!value || '입력해주세요!'],
-
       postCreated: '',
       isEditMode: false,
       isAlertShow: false,
       editPost: {},
       selectSeriesList: [],
       selectValue: this.post.seriesId,
+      isShowComment: false,
+      commentList: [],
     };
   },
   props: {
@@ -165,9 +197,11 @@ export default {
   },
   components: {
     Alert,
+    Comment,
+    CommentWrite,
   },
   computed: {
-    ...mapGetters(['seriesId']),
+    ...mapGetters(['seriesId', 'commentsDic']),
   },
   created() {
     // console.log('시리즈아이디', this.post.seriesId);
@@ -178,6 +212,10 @@ export default {
     this.setSeriesSelectList();
   },
   watch: {
+    commentsDic: function () {
+      let currentPostId = this.post.postId;
+      this.commentList = this.commentsDic[currentPostId];
+    },
     // 비동기 처리 늦게 됐을 때
     seriesList: function () {
       this.setSeriesSelectList();
@@ -189,6 +227,21 @@ export default {
     },
   },
   methods: {
+    clickCommentBtn(mode) {
+      let currentPostId = this.post.postId;
+      //댓글 리스트 열기
+      if (mode == 'open') {
+        //현재 페이지의 댓글 리스트 얻기
+        let payload = { postId: currentPostId, page: 1, size: 1000 };
+        this.$store.dispatch('getCommentsDic', payload);
+        this.isShowComment = true;
+      }
+      // 댓글 리스트 닫기
+      if (mode == 'close') {
+        this.$store.dispatch('deleteCommentsDic', currentPostId);
+        this.isShowComment = false;
+      }
+    },
     setSeriesSelectList() {
       this.selectSeriesList = this.seriesList.map((series) => {
         return { text: series.name, value: series.id };
@@ -314,7 +367,16 @@ export default {
 }
 .edit {
   padding: 20px;
+  border-radius: 20px;
+  background-color: rgba(238, 238, 238, 0.329);
   /* background-color: rgb(250, 242, 215); */
   /* border-radius: 10px; */
+}
+.commentArea {
+  margin-top: 30px;
+  width: 100%;
+  padding: 3px;
+  border-radius: 5px;
+  background-color: rgb(238, 238, 238);
 }
 </style>

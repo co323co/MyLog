@@ -1,5 +1,5 @@
 {
-  "name": "frontend",
+  "name": "Mylog",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -20,6 +20,7 @@
   },
   "devDependencies": {
     "@fortawesome/fontawesome-free": "^5.15.4",
+    "@mdi/font": "^6.4.95",
     "@vue/cli-plugin-babel": "~4.5.0",
     "@vue/cli-plugin-eslint": "~4.5.0",
     "@vue/cli-service": "~4.5.0",

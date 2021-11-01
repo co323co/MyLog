@@ -1,71 +1,143 @@
 <template>
-  <div class="regist">
-    <div class="head">댓글 등록</div>
-    <v-textarea v-model="content" solo></v-textarea>
-    <v-row class="text-right">
-      <v-spacer></v-spacer>
-      <v-col class="cbtn mb-3 mr-1" cols="1">
-        <button @click="regist">등록</button>
-      </v-col>
-    </v-row>
+  <div class="comment">
+    <div>
+      <div class="pt-5 mt-4 mb-1">
+        <v-icon class="mr-1" style="color: steelblue; margin-bottom: 2px" small>mdi-pencil </v-icon>
+        <h4 style="color: steelblue; display: inline-block">새 댓글 등록</h4>
+      </div>
+    </div>
+    <v-form ref="form" v-model="valid" class="content">
+      <v-row>
+        <v-col cols="2">
+          <v-text-field label="닉네임" v-model="nickname" hide-details="auto"></v-text-field>
+        </v-col>
+        <v-col cols="2">
+          <v-text-field
+            label="비밀번호"
+            v-model="password"
+            :rules="passwordRules"
+            hide-details="auto"
+          ></v-text-field>
+        </v-col>
+        <v-col class="text-right mr-1">
+          <v-btn
+            fab
+            small
+            elevation="1"
+            style="margin-bottom: -35px"
+            @click="regist"
+            class="head m1-5"
+          >
+            <v-icon small>mdi-plus</v-icon>
+          </v-btn>
+        </v-col>
+      </v-row>
+      <v-textarea
+        :rules="contentRules"
+        class="mt-3"
+        hide-details="auto"
+        v-model="content"
+        solo
+      ></v-textarea>
+    </v-form>
   </div>
 </template>
 
 <script>
 import axios from '@/utils/axios';
 import { mapGetters } from 'vuex';
+import { createComment } from '@/api/comment';
 
 export default {
   name: 'commentwrite',
-  props: ['bid', 'modifyComment'],
+  props: { postId: Number },
   data() {
     return {
+      passwordRules: [(value) => !!value || '4자리', (value) => value.length == 4 || '4자리'],
+      contentRules: [(value) => !!value || '내용을 입력해주세요!'],
       //댓글 등록용 content
       content: '',
+      password: '',
+      nickname: '',
+      valid: true,
     };
   },
   computed: {
     ...mapGetters(['currentUser']),
   },
   methods: {
+    validate() {
+      this.$refs.form.validate();
+    },
+    reset() {
+      this.$refs.form.reset();
+      this.password = '';
+      this.nickname = null;
+      this.content = null;
+    },
+    resetValidation() {
+      this.$refs.form.resetValidation();
+    },
     regist() {
-      if (this.content.length == 0) {
-        alert('댓글 내용이 비어있어요!');
-        return;
-      }
-      axios
-        .post('/comments', {
-          userid: this.currentUser.userid,
-          bid: this.bid,
-          content: this.content,
-        })
-        .then(({ data }) => {
-          if (data != true) {
-            let msg = '댓글 등록에 실패했습니다';
-            alert(msg);
-          }
-          // 댓글창 내용 지우기
-          this.content = '';
+      this.validate();
+      if (!this.valid) return;
+      let write = this.nickname ? this.nickname : null;
+      let payload = {
+        writer: write,
+        content: this.content,
+        password: this.password,
+        postId: this.postId,
+      };
+      createComment(payload).then(() => {
+        let payload = { postId: this.postId, page: 1, size: 1000 };
+        this.$store.dispatch('getCommentsDic', payload);
+      });
+      this.reset();
+      // axios
+      //   .post('/comments', {
+      //     userid: this.currentUser.userid,
+      //     bid: this.bid,
+      //     content: this.content,
+      //   })
+      //   .then(({ data }) => {
+      //     if (data != true) {
+      //       let msg = '댓글 등록에 실패했습니다';
+      //       alert(msg);
+      //     }
+      //     // 댓글창 내용 지우기
+      //     this.content = '';
 
-          // 새로 삽입했으니 댓글 다시 얻기.
-          this.$store.dispatch('getComments', this.bid);
-        });
+      //     // 새로 삽입했으니 댓글 다시 얻기.
+      //     this.$store.dispatch('getComments', this.bid);
+      //   });
     },
   },
 };
 </script>
 
 <style scoped>
-.regist {
+.comment {
   text-align: left;
   border-radius: 5px;
-  background-color: #e2e2e28e;
-  padding: 10px 20px;
-  margin-top: 10px;
+  /* background-color: #ffffff; */
+  padding: 0px 20px 10px 20px;
+  margin: 10px;
+}
+.divider {
+  height: 2px;
+  border-radius: 50px;
+  background-color: steelblue;
+}
+.orangeColor {
+  color: steelblue;
+}
+.border {
+  border-color: black;
+  border-width: 1px;
 }
 .head {
   font-weight: bold;
-  margin-bottom: 5px;
+  /* margin-bottom: 5px; */
 }
 .cbtn {
   color: steelblue;
