@@ -182,7 +182,7 @@ export default {
     setPostList() {
       this.postList = this.board.map((post) => {
         post.time = this.dateFilter(new Date(post.postCreatedAt));
-        post.title = this.titleFilter(post.postTitle, post.commentCount) + ' ' + post.postId;
+        post.title = this.titleFilter(post.postTitle, post.commentCount);
         return post;
       });
     },
