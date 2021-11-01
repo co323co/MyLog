@@ -109,6 +109,7 @@ public class CommentServiceImpl implements CommentService {
 
         // 최종 출력값 정리
         responseList = commentList.map(comment -> SelectCommentOutput.builder()
+                .commentId(comment.getId())
                 .postId(comment.getPost().getId())
                 .commentWriter(comment.getWriter())
                 .commentContent(comment.getContent())

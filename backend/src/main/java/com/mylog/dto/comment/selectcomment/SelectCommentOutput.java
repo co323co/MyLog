@@ -13,6 +13,7 @@ import java.time.LocalDateTime;
 @Setter
 @Builder
 public class SelectCommentOutput {
+    private Integer commentId;
     private Integer postId;
     private String commentWriter;
     private String commentContent;
