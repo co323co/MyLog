@@ -88,7 +88,7 @@ public class CommentServiceImpl implements CommentService {
 
         // 2. 댓글 조회
         Pageable pageable = PageRequest.of(selectCommentInput.getPage() - 1, selectCommentInput.getSize(),
-                Sort.Direction.DESC,"createdAt");
+                Sort.Direction.ASC,"createdAt");
         Page<SelectCommentOutput> responseList;
         Page<Comment> commentList;
         try {
