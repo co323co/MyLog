@@ -1,17 +1,20 @@
 <template>
   <div class="comment">
-    <div>
-      <div class="pt-5 mt-4 mb-1">
-        <v-icon class="mr-1" style="color: steelblue; margin-bottom: 2px" small>mdi-pencil </v-icon>
-        <h4 style="color: steelblue; display: inline-block">새 댓글 등록</h4>
-      </div>
-    </div>
+    <div></div>
     <v-form ref="form" v-model="valid" class="content">
       <v-row>
-        <v-col cols="2">
+        <v-col>
+          <div style="margin-top: 23px; margin-left: 2px">
+            <v-icon class="mr-1" style="color: steelblue; margin-bottom: 2px" small
+              >mdi-pencil
+            </v-icon>
+            <h4 style="color: steelblue; display: inline-block">새 댓글 달기</h4>
+          </div>
+        </v-col>
+        <v-col class="text-right" cols="2">
           <v-text-field label="닉네임" v-model="nickname" hide-details="auto"></v-text-field>
         </v-col>
-        <v-col cols="2">
+        <v-col class="text-right" cols="2">
           <v-text-field
             label="비밀번호"
             v-model="password"
@@ -19,7 +22,7 @@
             hide-details="auto"
           ></v-text-field>
         </v-col>
-        <v-col class="text-right mr-1">
+        <v-col cols="1" class="text-right mr-1">
           <v-btn
             fab
             small
@@ -53,7 +56,11 @@ export default {
   props: { postId: Number },
   data() {
     return {
-      passwordRules: [(value) => !!value || '4자리', (value) => value.length == 4 || '4자리'],
+      passwordRules: [
+        (value) => /[0-9]{4}/.test(value) || '4자리 숫자',
+
+        (value) => value.length == 4 || '4자리',
+      ],
       contentRules: [(value) => !!value || '내용을 입력해주세요!'],
       //댓글 등록용 content
       content: '',

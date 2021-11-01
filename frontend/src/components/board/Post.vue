@@ -77,11 +77,10 @@
 
       <!-- 댓글 리스트 -->
       <div v-if="isShowComment" class="commentArea">
+        <CommentWrite :postId="post.postId" />
         <div v-for="(comment, index) in commentList" :key="index">
           <Comment :comment="comment" />
         </div>
-
-        <CommentWrite :postId="post.postId" />
       </div>
     </div>
 
