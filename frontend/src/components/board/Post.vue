@@ -11,12 +11,29 @@
       <!-- 게시글 타이틀 바 -->
       <v-row class="top">
         <v-col>
-          <h2>
-            {{ post.postTitle }}
-          </h2>
+          <h2>{{ post.postTitle }}</h2>
         </v-col>
-        <v-col class="muted text-right" style="align-self: end">
+      </v-row>
+      <v-row style="margin-top: 0px">
+        <v-col class="muted" style="align-self: end">
           {{ postCreated }}
+        </v-col>
+        <v-col class="text-right">
+          <!-- 수정 버튼 -->
+          <v-btn @click="changeMode('edit')" class="mr-1" plain small fab color="grey lighten-1">
+            <v-icon>mdi-pencil</v-icon>
+          </v-btn>
+          <!-- 삭제 버튼 -->
+          <v-btn
+            @click="changeMode('try_delete')"
+            class="ml-1"
+            plain
+            small
+            fab
+            color="grey lighten-1"
+          >
+            <v-icon>mdi-delete</v-icon>
+          </v-btn>
         </v-col>
       </v-row>
       <v-divider class="my-2"></v-divider>
@@ -28,7 +45,6 @@
           <!-- 좌측 -->
           <v-col class="text-left">
             <v-btn
-              :disabled="post.commentCount == 0"
               v-if="!isShowComment"
               @click="clickCommentBtn('open')"
               class="mt-2"
@@ -48,24 +64,6 @@
             >
               <v-icon class="mr-1" gray small>mdi-message-processing</v-icon>
               댓글 {{ post.commentCount }}
-            </v-btn>
-          </v-col>
-          <!-- 우측 -->
-          <v-col class="text-right" style="margin-right: -25px">
-            <!-- 수정 버튼 -->
-            <v-btn @click="changeMode('edit')" class="mr-1" plain small fab color="grey lighten-1">
-              <v-icon>mdi-pencil</v-icon>
-            </v-btn>
-            <!-- 삭제 버튼 -->
-            <v-btn
-              @click="changeMode('try_delete')"
-              class="ml-1"
-              plain
-              small
-              fab
-              color="grey lighten-1"
-            >
-              <v-icon>mdi-delete</v-icon>
             </v-btn>
           </v-col>
         </v-row>
@@ -245,7 +243,7 @@ export default {
       this.selectSeriesList = this.seriesList.map((series) => {
         return { text: series.name, value: series.id };
       });
-      this.selectSeriesList.push({ text: '미분류', value: null });
+      this.selectSeriesList.push({ text: '미분류', value: -1 });
     },
     deleteAlertOk() {
       return this.changeMode('delete_alert_ok');
@@ -264,7 +262,7 @@ export default {
       // 글 수정 모드
       if (mode == 'edit') {
         this.isEditMode = true;
-        let seriesId = this.$store.state.board.seriesId;
+        let seriesId = this.post.seriedId;
         this.selectValue = seriesId;
         this.editPost.postTitle = this.post.postTitle;
         this.editPost.postContent = this.post.postContent;
@@ -308,6 +306,7 @@ export default {
           title: this.editPost.postTitle,
           content: this.editPost.postContent,
         };
+        console.log(newPost, 'newPost');
         if (newPost.title.length == 0 || !newPost.title) return;
         if (newPost.content.length == 0 || !newPost.content) return;
         this.isEditMode = false;
@@ -345,6 +344,7 @@ export default {
 }
 .bottom {
   position: relative;
+  margin-top: 50px;
 }
 .bottom button {
   font-size: 0.95rem;

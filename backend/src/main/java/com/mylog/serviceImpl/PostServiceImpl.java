@@ -128,11 +128,8 @@ public class PostServiceImpl implements PostService {
 
             // 3. 댓글 수정
             //시리즈 수정
-            if(updatePostInput.getSeriesId()!=null){
+            if(updatePostInput.getSeriesId()!=null){ // null인 경우 수정 X, -1 등 없는 값이면 자동 미분류
                 Series series = seriesRepository.findById(updatePostInput.getSeriesId()).orElse(null);
-                if(series==null)
-                    return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                            .body(new Response<>(NOT_FOUND_SERIES));
                 post.setSeries(series);
             }
             //제목 수정

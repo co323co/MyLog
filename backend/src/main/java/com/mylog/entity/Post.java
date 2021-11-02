@@ -35,7 +35,7 @@ public class Post {
     @Column(name="title", nullable = false)
     private String title;
 
-    @Column(name = "content", nullable = false)
+    @Column(name = "content", columnDefinition = "LONGTEXT", nullable = false)
     private String content;
 
     @Column(name = "views", nullable = false)
