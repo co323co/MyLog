@@ -38,7 +38,7 @@
       </v-row>
       <v-divider class="my-2"></v-divider>
       <!-- 게시글 내용 -->
-      <v-row class="content py-5 ma-1" v-html="enterToBr(post.postContent)"> </v-row>
+      <v-row class="content py-5 ma-1 mb-5" v-html="enterToBr(post.postContent)"> </v-row>
       <!-- 게시글 하단 바 -->
       <div class="bottom">
         <v-row v-if="!isAlertShow">
@@ -339,12 +339,10 @@ export default {
   font-size: 1.25rem;
 }
 .content {
-  font-size: 1.1rem;
   min-height: 300px;
 }
 .bottom {
   position: relative;
-  margin-top: 50px;
 }
 .bottom button {
   font-size: 0.95rem;
@@ -372,7 +370,7 @@ export default {
   /* border-radius: 10px; */
 }
 .commentArea {
-  margin-top: 30px;
+  margin-top: 50px;
   width: 100%;
   padding: 3px;
   border-radius: 5px;

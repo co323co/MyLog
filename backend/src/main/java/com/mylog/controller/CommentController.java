@@ -12,6 +12,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.nio.file.Path;
+
 /**
  * 댓글 CRUD API
  */
@@ -37,6 +39,18 @@ public class CommentController {
 
     /**
      * 댓글 조회 API
+     * [GET] /api/comments/{id}
+     * @return ResponseEntity<PageResponse<SelectCommentOutput>>
+     */
+    // Params
+    @GetMapping("/{id}")
+    public ResponseEntity<Response<SelectCommentOutput>> getComment(@PathVariable("id") int commentId) {
+        log.info("[GET] /api/comments/{id}");
+        return commentService.selectComment(commentId);
+    }
+
+    /**
+     * 댓글 리스트 조회 API
      * [GET] /api/comments?postId=&page=&size=
      * @return ResponseEntity<PageResponse<SelectCommentOutput>>
      */

@@ -6,7 +6,7 @@
     dark
     shrink-on-scroll
     prominent
-    src="https://picsum.photos/1920/1080?random"
+    src="https://cdn.pixabay.com/photo/2017/06/26/08/14/laptop-2443052_960_720.jpg"
     fade-img-on-scroll
   >
     <v-app-bar-title class="ml-5 mb-3"> <h2 class="ml-5">MyLog</h2> </v-app-bar-title>

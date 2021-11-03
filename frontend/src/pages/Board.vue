@@ -35,7 +35,7 @@
         </v-col>
       </v-row>
       <!-- 글 목록 -->
-      <div class="pa-1">
+      <div>
         <!-- 보드 게시글 목록들 -->
         <v-data-table
           v-if="!isDeltePostListMode"
@@ -55,7 +55,7 @@
           }"
         >
           <template v-slot:footer.prepend>
-            <div class="mt-3">
+            <div class="mt-1">
               <v-btn @click="isDeltePostListMode = true" text color="red lighten-1">
                 <v-icon small>mdi-close</v-icon>
                 지우기</v-btn

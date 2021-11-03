@@ -3,9 +3,9 @@
     <v-card>
       <v-navigation-drawer app permanent expand-on-hover>
         <v-list>
-          <v-list-item class="px-2">
+          <v-list-item class="px-2 pt-1">
             <v-list-item-avatar>
-              <v-img src="https://randomuser.me/api/portraits/women/85.jpg"></v-img>
+              <v-img src="@/assets/img/me.png"></v-img>
             </v-list-item-avatar>
           </v-list-item>
 
@@ -39,6 +39,27 @@
             </v-list-item-title>
           </v-list-item>
         </v-list>
+
+        <v-divider></v-divider>
+
+        <v-list nav dense>
+          <v-list-item link @click="open('github')">
+            <v-list-item-icon>
+              <v-icon>mdi-github</v-icon>
+            </v-list-item-icon>
+            <v-list-item-title>
+              <div style="font-size: 1rem">Github</div>
+            </v-list-item-title>
+          </v-list-item>
+          <v-list-item link @click="open('notion')">
+            <v-list-item-icon>
+              <v-icon>mdi-notebook</v-icon>
+            </v-list-item-icon>
+            <v-list-item-title>
+              <div style="font-size: 1rem">Notion</div>
+            </v-list-item-title>
+          </v-list-item>
+        </v-list>
       </v-navigation-drawer>
     </v-card>
   </div>
@@ -50,6 +71,13 @@ export default {
       //탭 메뉴들을 바꾸기 위해 알려줌
       if (path == 'main') this.$router.push({ path: `/main` }).catch(() => {});
       else if (path == 'board') this.$router.push({ path: `/board` }).catch(() => {});
+    },
+    open(to) {
+      if (to == 'github') {
+        window.open('https://github.com/co323co');
+      } else if (to == 'notion') {
+        window.open('https://cocoj.notion.site/MinJeong-Kim-39dea25333424982afec7d9ddf091f4c');
+      }
     },
   },
 };

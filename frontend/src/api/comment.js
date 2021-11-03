@@ -1,5 +1,16 @@
 import axios from '@/utils/axios';
 
+// 댓글 조회 API
+async function getComment(commentId) {
+  var url = `/comments/${commentId}`;
+  try {
+    const { data } = await axios.get(url);
+    return data.result;
+  } catch (error) {
+    console.error(error.response.data.message);
+  }
+}
+
 // 댓글 리스트 조회 API
 async function getCommentList(condition) {
   var url = `/comments?page=${condition.page}&size=${condition.size}`;
@@ -39,4 +50,4 @@ async function deleteComment(commentId) {
     console.error(error.response.data.message);
   }
 }
-export { getCommentList, createComment, updateComment, deleteComment };
+export { getComment, getCommentList, createComment, updateComment, deleteComment };

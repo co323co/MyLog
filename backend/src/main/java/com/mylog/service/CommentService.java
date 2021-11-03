@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 
 public interface CommentService {
     ResponseEntity<Response<Object>> createComment(CreateCommentInput createCommentInput);
+    ResponseEntity<Response<SelectCommentOutput>> selectComment(int commentId);
     ResponseEntity<PageResponse<SelectCommentOutput>> selectCommentList(SelectCommentInput selectCommentInput);
     ResponseEntity<Response<Object>> updateComment( UpdateCommentInput updateCommentInput, int commentId);
     ResponseEntity<Response<Object>> deleteComment(int commentId);

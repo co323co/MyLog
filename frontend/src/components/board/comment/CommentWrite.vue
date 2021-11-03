@@ -100,23 +100,6 @@ export default {
         this.$store.dispatch('getCommentsDic', payload);
       });
       this.reset();
-      // axios
-      //   .post('/comments', {
-      //     userid: this.currentUser.userid,
-      //     bid: this.bid,
-      //     content: this.content,
-      //   })
-      //   .then(({ data }) => {
-      //     if (data != true) {
-      //       let msg = '댓글 등록에 실패했습니다';
-      //       alert(msg);
-      //     }
-      //     // 댓글창 내용 지우기
-      //     this.content = '';
-
-      //     // 새로 삽입했으니 댓글 다시 얻기.
-      //     this.$store.dispatch('getComments', this.bid);
-      //   });
     },
   },
 };

@@ -76,6 +76,42 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
+    public ResponseEntity<Response<SelectCommentOutput>> selectComment(int commentId) {
+        // 1. 값 형식 체크
+        if (!ValidationCheck.isValidId(commentId))
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body(new Response<>(BAD_ID_VALUE));
+
+        // 2. 댓글 조회
+        Comment comment;
+        try {
+            comment = commentRepository.findById(commentId).orElse(null);
+                if(comment==null)
+                    return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                            .body(new Response<>(NOT_FOUND_COMMENT));
+        } catch (Exception e) {
+            log.error("[comments/get] database error", e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(new Response<>(DATABASE_ERROR));
+        }
+
+        // 최종 출력값 정리
+        SelectCommentOutput res = SelectCommentOutput.builder()
+                            .commentId(comment.getId())
+                            .postId(comment.getPost().getId())
+                            .commentWriter(comment.getWriter())
+                            .commentContent(comment.getContent())
+                            .commentCreatedAt(comment.getCreatedAt())
+                            .commentUpdatedAt(comment.getUpdatedAt())
+                            .build();
+
+        // 3. 결과 return
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(new Response<>(res, SUCCESS_SELECT_COMMENT));
+    }
+
+
+    @Override
     public ResponseEntity<PageResponse<SelectCommentOutput>> selectCommentList(SelectCommentInput selectCommentInput) {
         // 1. 값 형식 체크
         if (selectCommentInput == null)
