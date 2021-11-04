@@ -6,15 +6,13 @@
     dark
     shrink-on-scroll
     prominent
-    src="https://cdn.pixabay.com/photo/2017/06/26/08/14/laptop-2443052_960_720.jpg"
+    src="https://cdn.pixabay.com/photo/2016/11/29/06/18/apple-1867762_960_720.jpg"
     fade-img-on-scroll
   >
     <v-app-bar-title class="ml-5 mb-3"> <h2 class="ml-5">MyLog</h2> </v-app-bar-title>
     <v-spacer></v-spacer>
-    <v-btn text>
-      <span class="mr-2">관리자 페이지</span>
-      <v-icon>mdi-open-in-new</v-icon>
-    </v-btn>
+
+    <Setting />
     <template v-slot:extension>
       <!-- 홈 화면 탭 -->
       <v-tabs v-if="routerName == 'main'" align-with-title v-model="active_tab">
@@ -34,16 +32,6 @@
           미분류
         </v-tab>
       </v-tabs>
-
-      <!-- 검색  -->
-      <!-- <div class="mb-3">
-        <v-text-field
-          prepend-icon="mdi-magnify"
-          label="검색"
-          single-line
-          hide-details
-        ></v-text-field>
-      </div> -->
     </template>
   </v-app-bar>
 </template>
@@ -51,18 +39,25 @@
 <script>
 import { getSeriesList } from '@/api/series';
 import { mapGetters } from 'vuex';
+import Setting from '@/components/setting/Setting';
 
 export default {
   name: 'Header',
-  data() {
-    return { seriesList: {}, active_tab: 0 };
+  components: {
+    Setting, //관리자페이지 버튼
   },
-  computed: { ...mapGetters(['routerName']) },
+  data() {
+    return {
+      // seriesList: {},
+      active_tab: 0,
+    };
+  },
+  computed: { ...mapGetters(['routerName', 'seriesList']) },
   watch: {},
   created() {
     console.log('이름', this.routerName);
-    getSeriesList().then((res) => {
-      this.seriesList = res;
+
+    this.$store.dispatch('getSeries').then((res) => {
       // 현재 url을 참고하여 탭 변경
       let seriesId = this.$route.query.seriesId;
       let hasSeries = this.$route.query.hasSeries;

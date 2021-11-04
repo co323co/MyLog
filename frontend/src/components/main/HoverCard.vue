@@ -12,6 +12,7 @@
         <v-card-title
           class="mt-2 pt-5"
           style="
+            min-width: 200px;
             font-family: BMYEONSUNG !important;
             font-size: 1.6rem;
             font-weight: bord;

@@ -108,7 +108,7 @@ public class SeriesServiceImpl implements SeriesService {
     @Transactional
     public ResponseEntity<Response<Object>> updateSeries(UpdateSeriesInput updateSeriesInput, int seriesId) {
         try {
-
+            System.out.println(updateSeriesInput.getName()+","+seriesId);
             // 1. 값 형식 체크
             if (updateSeriesInput == null)
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST)

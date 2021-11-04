@@ -163,7 +163,7 @@ export default {
         page: 1,
         size: 1000,
       };
-      this.$store.dispatch('getBoard', payload);
+      this.$store.ch('getBoard', payload);
     },
 
     enterToBr(str) {

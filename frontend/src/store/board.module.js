@@ -1,6 +1,7 @@
 import axios from '@/utils/axios.js';
 import { getPostList } from '@/api/post';
 import { getCommentList } from '@/api/comment';
+import { getSeriesList } from '../api/series';
 
 export default {
   // 현재 상태들
@@ -11,6 +12,7 @@ export default {
     seriesId: '',
     // seriesname: '',
     commentsDic: {},
+    seriesList: [],
   },
   getters: {
     seriesId(state) {
@@ -19,9 +21,9 @@ export default {
     board(state) {
       return state.board;
     },
-    // seriesname(state) {
-    //   return state.seriesname;
-    // },
+    seriesList(state) {
+      return state.seriesList;
+    },
     commentsDic(state) {
       return state.commentsDic;
     },
@@ -32,6 +34,9 @@ export default {
     },
     setBoard(state, payload) {
       state.board = payload;
+    },
+    setSeriesList(state, payload) {
+      state.seriesList = payload;
     },
     // setSeriesName(state, payload) {
     //   state.seriesname = payload;
@@ -51,12 +56,6 @@ export default {
     getBoard(context, payload) {
       getPostList(payload).then((res) => context.commit('setBoard', res));
     },
-    // //시리즈 id로 시리즈 이름 찾기
-    // getSeriesName(context, payload) {
-    //   axios.get('/series/' + payload).then(({ data }) => {
-    //     context.commit('setSeriesName', data.result.name);
-    //   });
-    // },
 
     //(페이지, 댓글리스트) 쌍 추가하기
     getCommentsDic(context, payload) {
@@ -70,6 +69,10 @@ export default {
 
     deleteCommentsDic(context, payload) {
       context.commit('deleteCommentsDic', payload);
+    },
+
+    getSeries(context) {
+      getSeriesList().then((res) => context.commit('setSeriesList', res));
     },
   },
 };

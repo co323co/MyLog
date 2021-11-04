@@ -1,5 +1,5 @@
 <template lang="">
-  <div class="pa-2 my-5">
+  <div class="pa-2 my-5 back">
     <v-row>
       <v-col cols="1">
         <CatAni />
@@ -30,18 +30,12 @@
         <h3>백엔드 개발자로서 더 성장하기 위해 항상 고민하고 있어요</h3>
         <h3 class="my-3">
           <a @click="moveToGithub"> 깃허브 </a>
-          에서 제가 했던 프로젝트를 구경할 수 있어요!
+          에서 제가 했던 프로젝트를 구경할 수 있어요
         </h3>
       </div>
-      <div class="text-center pa-5" style="margin: 60px 10%">
-        <v-carousel :cycle="true" :hide-delimiter-background="true">
-          <v-carousel-item
-            v-for="(item, i) in items"
-            :key="i"
-            :src="item.src"
-            reverse-transition="fade-transition"
-            transition="fade-transition"
-          ></v-carousel-item>
+      <div class="text-center pa-5" style="margin: 60px 15%">
+        <v-carousel :cycle="true" height="auto" :hide-delimiter-background="true">
+          <v-carousel-item v-for="(item, i) in items" :key="i" :src="item.src"></v-carousel-item>
         </v-carousel>
       </div>
     </div>
@@ -50,9 +44,13 @@
 <script>
 import CatAni from '@/components/main/CatAni';
 import HoverCard from '@/components/main/HoverCard';
-import pic1 from '@/assets/img/GAON.png';
-import pic2 from '@/assets/img/GAON2.png';
-import pic3 from '@/assets/img/CafeIn.png';
+// import pic1 from '@/assets/img/GAON.png';
+// import pic2 from '@/assets/img/GAON2.png';
+// import pic3 from '@/assets/img/CafeIn.png';
+import s1 from '@/assets/img/s1.png';
+import s2 from '@/assets/img/s2.png';
+import s3 from '@/assets/img/s3.png';
+import s4 from '@/assets/img/s4.png';
 
 export default {
   components: {
@@ -64,16 +62,16 @@ export default {
       reveal: false,
       items: [
         {
-          src: pic1,
+          src: s1,
         },
         {
-          src: 'https://user-images.githubusercontent.com/86418158/125574224-2047eae4-460e-418f-8be5-b239e5ecba9a.png',
+          src: s2,
         },
         {
-          src: pic2,
+          src: s3,
         },
         {
-          src: pic3,
+          src: s4,
         },
       ],
       card1: {
@@ -114,5 +112,9 @@ export default {
   opacity: 1 !important;
   position: absolute;
   width: 100%;
+}
+.back {
+  background-color: rgb(247, 243, 243);
+  border-radius: 20%;
 }
 </style>
