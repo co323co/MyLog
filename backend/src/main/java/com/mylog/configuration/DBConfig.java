@@ -22,7 +22,7 @@ import java.util.Map;
 @Configuration
 @EnableTransactionManagement
 @EnableJpaRepositories(
-        basePackages = "com.cod.dao",
+        basePackages = "com.mylog.dao",
         transactionManagerRef = "mysqlDB_transactionManager",
         entityManagerFactoryRef = "mysqlDB_entityManagerFactory"
 )
@@ -45,7 +45,7 @@ public class DBConfig {
         map.put("hibernate.ejb.naming_strategy", "org.hibernate.cfg.ImprovedNamingStrategy");
         map.put("hibernate.dialect", "org.hibernate.dialect.MySQL5InnoDBDialect");
         return builder.dataSource(dataSource)
-                .packages("com.cod.entity")
+                .packages("com.mylog.entity")
                 .properties(map)
                 .build();
     }
