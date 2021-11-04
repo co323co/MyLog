@@ -18,7 +18,7 @@
         <v-col class="muted" style="align-self: end">
           {{ postCreated }}
         </v-col>
-        <v-col class="text-right">
+        <v-col v-if="!isAlertShow" class="text-right">
           <!-- 수정 버튼 -->
           <v-btn @click="changeMode('edit')" class="mr-1" plain small fab color="grey lighten-1">
             <v-icon>mdi-pencil</v-icon>
@@ -37,6 +37,10 @@
         </v-col>
       </v-row>
       <v-divider class="my-2"></v-divider>
+      <!-- 삭제 알림 -->
+      <v-row v-if="isAlertShow" style="margin-top: 20px; z-index: 2">
+        <Alert msg="정말로 글을 삭제하시겠어요?" :ok="deleteAlertOk" :no="deleteAlertNo" />
+      </v-row>
       <!-- 게시글 내용 -->
       <v-row class="content py-5 ma-1 mb-5" v-html="enterToBr(post.postContent)"> </v-row>
       <!-- 게시글 하단 바 -->
@@ -66,10 +70,6 @@
               댓글 {{ post.commentCount }}
             </v-btn>
           </v-col>
-        </v-row>
-        <!-- 삭제 알림 -->
-        <v-row v-else style="top: -80px; z-index: 2">
-          <Alert msg="정말로 글을 삭제하시겠어요?" :ok="deleteAlertOk" :no="deleteAlertNo" />
         </v-row>
       </div>
 
@@ -152,7 +152,7 @@
           </v-col>
         </v-row>
         <!-- <transition name="slide-fade"> -->
-        <v-row v-else style="top: -340px; z-index: 3">
+        <v-row v-else style="top: -350px; z-index: 3">
           <Alert
             msg="작성하시던 내용이 사라질 수 있습니다. 취소하시겠습니까?"
             :ok="cancleAlertOk"
