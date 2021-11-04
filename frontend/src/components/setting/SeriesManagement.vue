@@ -74,6 +74,14 @@ export default {
   computed: {
     ...mapGetters(['seriesList']),
   },
+  watch: {
+    seriesList: function () {
+      for (let series of this.seriesList) {
+        this.isEditModeList.push(false);
+        this.editNameList.push(series.name);
+      }
+    },
+  },
   methods: {
     create() {
       if (this.createName == null || this.createName.length == 0) return;
@@ -85,12 +93,7 @@ export default {
     reset() {
       this.isEditModeList = [];
       this.editNameList = [];
-      this.$store.dispatch('getSeries').then(() => {
-        for (let series of this.seriesList) {
-          this.isEditModeList.push(false);
-          this.editNameList.push(series.name);
-        }
-      });
+      this.$store.dispatch('getSeries');
     },
     getIsEditMode(index) {
       return this.isEditModeList[index];
