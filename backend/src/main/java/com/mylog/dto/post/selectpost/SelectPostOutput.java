@@ -1,6 +1,5 @@
 package com.mylog.dto.post.selectpost;
 
-import com.mylog.dto.postfile.SelectPostFileMetaOutput;
 import com.querydsl.core.annotations.QueryProjection;
 import lombok.*;
 

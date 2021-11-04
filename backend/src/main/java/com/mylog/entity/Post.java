@@ -49,7 +49,4 @@ public class Post {
     @Column(name = "updated_at", nullable = false)
     private LocalDateTime updatedAt;
 
-//    @OneToMany(fetch=FetchType.LAZY, orphanRemoval= true, cascade= CascadeType.ALL,mappedBy = "post")
-//    @OneToMany(fetch=FetchType.LAZY, mappedBy = "post")
-//    private List<PostFileMeta> files = new ArrayList<PostFileMeta>();
 }
