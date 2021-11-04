@@ -1,0 +1,298 @@
+ifndef::snippets[]
+:snippets: ./build/generated-snippets
+endif::[]
+= API Document
+:doctype: book
+:icons: font
+:source-highlighter: highlightjs
+:toc: left
+:toclevels: 4
+:sectlinks:
+:docinfo: shared-head
+
+[[introduction]]
+== 소개
+
+Mylog API
+
+[[common]]
+== 공통 사항
+
+API에 관계없이 아래 사항을 지켜주셔야 합니다.
+
+=== Domain
+
+|===
+| 환경 | Domain
+
+| 개발서버
+| `https://mylog.cf:8081`
+
+|===
+
+=== Common Response
+
+&#160;
+
+== 1. 개요
+
+== 2. Series API
+
+=== 2-1. 시리즈 작성
+
+==== 시리즈 작성
+
+Request Header
+
+include::{snippets}/series/create/successful/request-fields.adoc[]
+
+include::{snippets}/series/create/successful/response-fields.adoc[]
+
+==== 시리즈 작성 성공
+
+Request Example
+
+include::{snippets}/series/create/successful/http-request.adoc[]
+
+Response Example
+
+include::{snippets}/series/create/successful/http-response.adoc[]
+
+=== 2-2. 시리즈 조회
+
+==== 시리즈 조회
+
+Request Header
+
+include::{snippets}/comments_detail/select/successful/response-fields.adoc[]
+
+==== 시리즈 조회 성공
+
+Request Example
+
+include::{snippets}/series_detail/select/successful/http-request.adoc[]
+
+Response Example
+
+include::{snippets}/series_detail/select/successful/http-response.adoc[]
+
+
+==== 시리즈 리스트 조회
+
+Request Header
+
+include::{snippets}/series/select/successful/response-fields.adoc[]
+
+==== 시리즈 리스트 조회 성공
+
+Request Example
+
+include::{snippets}/series/select/successful/http-request.adoc[]
+
+Response Example
+
+include::{snippets}/series/select/successful/http-response.adoc[]
+
+=== 2-3. 시리즈 수정
+
+==== 시리즈 수정
+
+Request Header
+
+include::{snippets}/series/update/successful/path-parameters.adoc[]
+
+include::{snippets}/series/update/successful/request-fields.adoc[]
+
+include::{snippets}/series/update/successful/response-fields.adoc[]
+
+==== 시리즈 수정 성공
+
+Request Example
+
+include::{snippets}/series/update/successful/http-request.adoc[]
+
+Response Example
+
+include::{snippets}/series/update/successful/http-response.adoc[]
+
+=== 2-4. 시리즈 삭제
+
+==== 시리즈 삭제
+
+Request Header
+
+include::{snippets}/series/delete/successful/path-parameters.adoc[]
+
+include::{snippets}/series/delete/successful/response-fields.adoc[]
+
+==== 시리즈 삭제 성공
+
+Request Example
+
+include::{snippets}/series/delete/successful/http-request.adoc[]
+
+Response Example
+
+include::{snippets}/series/delete/successful/http-response.adoc[]
+
+
+== 3. Post API
+
+=== 3-1. 게시글 작성
+
+==== 게시글 작성
+
+Request Header
+
+include::{snippets}/posts/create/successful/request-fields.adoc[]
+
+include::{snippets}/posts/create/successful/response-fields.adoc[]
+
+==== 게시글 작성 성공
+
+Request Example
+
+include::{snippets}/posts/create/successful/http-request.adoc[]
+
+Response Example
+
+include::{snippets}/posts/create/successful/http-response.adoc[]
+
+=== 3-2. 게시글 조회
+
+==== 게시글 조회
+
+include::{snippets}/posts/select/successful/request-parameters.adoc[]
+
+include::{snippets}/posts/select/successful/response-fields.adoc[]
+
+==== 게시글 조회 성공
+
+Request Example
+
+include::{snippets}/posts/select/successful/http-request.adoc[]
+
+Response Example
+
+include::{snippets}/posts/select/successful/http-response.adoc[]
+
+=== 3-3. 게시글 수정
+
+==== 게시글 수정
+
+Request Header
+
+include::{snippets}/posts/update/successful/path-parameters.adoc[]
+
+include::{snippets}/posts/update/successful/request-fields.adoc[]
+
+include::{snippets}/posts/update/successful/response-fields.adoc[]
+
+==== 게시글 수정 성공
+
+Request Example
+
+include::{snippets}/posts/update/successful/http-request.adoc[]
+
+Response Example
+
+include::{snippets}/posts/update/successful/http-response.adoc[]
+
+=== 3-4. 게시글 삭제
+
+==== 게시글 삭제
+
+Request Header
+
+include::{snippets}/posts/delete/successful/path-parameters.adoc[]
+
+include::{snippets}/posts/delete/successful/response-fields.adoc[]
+
+==== 게시글 삭제 성공
+
+Request Example
+
+include::{snippets}/posts/delete/successful/http-request.adoc[]
+
+Response Example
+
+include::{snippets}/posts/delete/successful/http-response.adoc[]
+
+== 4. Comment API
+
+=== 4-1. 댓글 등록
+
+==== 댓글 등록
+
+Request Header
+
+include::{snippets}/comments/create/successful/request-fields.adoc[]
+
+include::{snippets}/comments/create/successful/response-fields.adoc[]
+
+==== 댓글 등록 성공
+
+Request Example
+
+include::{snippets}/comments/create/successful/http-request.adoc[]
+
+Response Example
+
+include::{snippets}/comments/create/successful/http-response.adoc[]
+
+=== 4-2. 댓글 조회
+
+==== 댓글 조회
+
+Request Header
+
+include::{snippets}/comments_detail/select/successful/response-fields.adoc[]
+
+==== 댓글 조회 성공
+
+Request Example
+
+include::{snippets}/comments_detail/select/successful/http-request.adoc[]
+
+Response Example
+
+include::{snippets}/comments_detail/select/successful/http-response.adoc[]
+
+
+==== 댓글 리스트 조회
+
+Request Header
+
+include::{snippets}/comments/select/successful/request-parameters.adoc[]
+
+include::{snippets}/comments/select/successful/response-fields.adoc[]
+
+==== 댓글 리스트 조회 성공
+
+Request Example
+
+include::{snippets}/comments/select/successful/http-request.adoc[]
+
+Response Example
+
+include::{snippets}/comments/select/successful/http-response.adoc[]
+
+=== 4-3. 댓글 삭제
+
+==== 댓글 삭제
+
+Request Header
+
+include::{snippets}/comments/delete/successful/path-parameters.adoc[]
+
+include::{snippets}/comments/delete/successful/response-fields.adoc[]
+
+==== 댓글 삭제 성공
+
+Request Example
+
+include::{snippets}/comments/delete/successful/http-request.adoc[]
+
+Response Example
+
+include::{snippets}/comments/delete/successful/http-response.adoc[]

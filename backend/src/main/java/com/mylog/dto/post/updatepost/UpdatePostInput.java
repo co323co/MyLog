@@ -11,7 +11,7 @@ import java.util.List;
 @Getter
 @Setter
 public class UpdatePostInput {
-    private Integer SeriesId;
+    private Integer seriesId;
     private String title;
     private String content;
 }

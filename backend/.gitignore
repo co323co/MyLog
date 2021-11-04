@@ -1,4 +1,5 @@
 src/main/resources/application.yml
+/src/main/resources/application_test.yml
 
 HELP.md
 .gradle
@@ -41,3 +42,4 @@ out/
 
 ### Mac Os ###
 .DS_Store
+
