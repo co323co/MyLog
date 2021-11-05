@@ -166,7 +166,7 @@ MyLog : 마이로그
 
 - REST API 규칙을 지키도록 노력했습니다.
 - Spring Rest Docs를 통해 테스트를 거쳐 만들었습니다.
-- /MyLog/exec 경로에 API 명세서 pdf 및 html이 들어있습니다.
+- /MyLog/docs 경로에 API 명세서 pdf 및 html이 들어있습니다.
 
 #### 명세서 바로 보기
 
