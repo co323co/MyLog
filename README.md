@@ -122,10 +122,10 @@ MyLog : 마이로그
                  use_sql_comments: true
                  hbm2ddl.auto: update
         
-         server:
-           servlet:
-             context-path: "/api"
-           port : 8081
+        server:
+          servlet:
+            context-path: "/api"
+          port : 8081
         ```
    
 3. 배포
